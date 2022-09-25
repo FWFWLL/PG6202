@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 import {ArcRotateCamera, Color4, Engine, Mesh, Quaternion, Scene, ShaderMaterial, Vector3, VertexData} from "babylonjs";
+=======
+import {ArcRotateCamera, Axis, Color4, Engine, Matrix, Mesh, Quaternion, Scene, ShaderMaterial, Vector3, VertexData} from "babylonjs";
+>>>>>>> 1a36eba9ba5a0457546da2ad741498571e0343e9
 
 export class Transformations {
 	engine: Engine;
