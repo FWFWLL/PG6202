@@ -12,10 +12,12 @@ import {Textures} from "@/exercises/3-Textures";
 export default defineComponent({
 	name: "BabylonCanvas",
 	mounted() {
-		const canvas = document.querySelector("canvas")!;
-		// new GettingStarted(canvas);
-		// new MeshesAndCurves(canvas);
-		new Textures(canvas);
+		const canvas = document.querySelector("canvas");
+		if(canvas !== null) {
+			// new GettingStarted(canvas);
+			// new MeshesAndCurves(canvas);
+			new Textures(canvas);
+		}
 	},
 });
 
