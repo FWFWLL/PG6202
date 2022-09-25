@@ -34,10 +34,10 @@ export class MeshesAndCurves {
 		const square = new Mesh("square", this.scene);
 
 		const positions = [
-			-1, 1, 0,
-			-1, -1, 0,
-			1, -1, 0,
-			1, 1, 0,
+			-0.5, 0.5, 0,
+			-0.5, -0.5, 0,
+			0.5, -0.5, 0,
+			0.5, 0.5, 0,
 		];
 
 		const indices = [
