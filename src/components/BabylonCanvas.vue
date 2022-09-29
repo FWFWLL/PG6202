@@ -8,7 +8,8 @@ import {defineComponent} from "vue";
 // import {GettingStarted} from "@/exercises/1-Getting-Started";
 // import {MeshesAndCurves} from "@/exercises/2-Meshes-and-Curves";
 // import {Textures} from "@/exercises/3-Textures";
-import {Transformations} from "@/exercises/4-Transformations";
+// import {Transformations} from "@/exercises/4-Transformations";
+import {Camera} from "@/exercises/5-Camera";
 
 export default defineComponent({
 	name: "BabylonCanvas",
@@ -18,7 +19,8 @@ export default defineComponent({
 			// new GettingStarted(canvas);
 			// new MeshesAndCurves(canvas);
 			// new Textures(canvas);
-			new Transformations(canvas);
+			// new Transformations(canvas);
+			new Camera(canvas);
 		}
 	},
 });
