@@ -1,10 +1,10 @@
-import {ArcRotateCamera, Color3, Color4, Engine, Matrix, Scene, SceneLoader, ShaderMaterial, Vector3, Vector4} from "babylonjs";
+import {ArcRotateCamera, Color4, Engine, Matrix, Scene, SceneLoader, ShaderMaterial, Vector3, Vector4} from "babylonjs";
 
 export class Shading {
 	engine: Engine;
 	scene: Scene;
 
-	constructor(private canvas: HTMLCanvasElement) {
+	constructor(canvas: HTMLCanvasElement) {
 		this.engine = new Engine(canvas, true);
 		this.scene = this.createScene();
 
@@ -19,7 +19,7 @@ export class Shading {
 
 		new ArcRotateCamera("camera", 0, 0, 100, Vector3.Zero(), scene);
 
-		const shaderMaterial = new ShaderMaterial("shader", this.scene, "/shaders/6-Shading/shader", {
+		const shaderMaterial = new ShaderMaterial("shader", this.scene, "/shaders/6-Shading/per_fragment", {
 			attributes: ["position", "normal", "color"],
 			uniforms: ["model", "view", "projection"]
 		});
@@ -34,28 +34,33 @@ export class Shading {
 
 			const view = Matrix.LookAtLH(new Vector3(0, 0, -100), newMeshes[0].getBoundingInfo().boundingBox.centerWorld, Vector3.Up());
 			shaderMaterial.setMatrix("view", view);
+
+			const inverseView = Matrix.Invert(view);
+			shaderMaterial.setMatrix("inverseView", inverseView);
 		});
 
 		const projection = Matrix.PerspectiveFovLH(1, 1, 1, 10000);
 		shaderMaterial.setMatrix("projection", projection);
 
-		const ambientLight = new Color4(0.2, 0.2, 0.2, 1.0);
+		const ambientLightColor = new Color4(0.2, 0.2, 0.2, 1.0);
 
-		const lightPosition = new Vector3(-69, 42, -42);
-		const lightColor = new Color4(255, 255, 255, 10);
+		const rightLightPosition = new Vector4(25, 25, -50, 1);
+		const rightLightColor = new Color4(255, 0, 64, 20);
 
-		// const specular = Color3.White();
-		// const shininess = 50;
+		const leftLightPosition = new Vector4(-25, 25, -50, 1);
+		const leftLightColor = new Color4(84, 218, 151, 7);
 
-		shaderMaterial.setColor4("ambientLight", ambientLight);
-		shaderMaterial.setVector3("lightPosition", lightPosition);
-		shaderMaterial.setColor4("lightColor", lightColor);
-		// shaderMaterial.setColor3("iDiffuse", Color3.White());
-		// shaderMaterial.setColor3("iDiffuse", lightColor);
-		// shaderMaterial.setColor3("iSpecular", lightColor);
-		// shaderMaterial.setColor3("kAmbient", ambient);
-		// shaderMaterial.setColor3("kSpecular", specular)
-		// shaderMaterial.setFloat("kSpecular", shininess);
+		const shininess = 20;
+		
+		shaderMaterial.setColor4("uAmbientLightColor", ambientLightColor);
+
+		shaderMaterial.setVector4("rightLightPosition", rightLightPosition);
+		shaderMaterial.setColor4("rightLightColor", rightLightColor);
+
+		shaderMaterial.setVector4("leftLightPosition", leftLightPosition);
+		shaderMaterial.setColor4("leftLightColor", leftLightColor);
+
+		shaderMaterial.setFloat("shininess", shininess);
 
 		return scene;
 	}
